@@ -1,11 +1,8 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/ZulfahmiFjr/SoulWell
 build-by-default: true
 branches:
-- stable
+- stable 
 projects:
   SoulWell:
     path: ""
-    libs:
-      - src: skymin\InventoryLib
-        version: ^3.1.1
 ...

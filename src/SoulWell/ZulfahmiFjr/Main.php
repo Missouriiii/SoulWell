@@ -35,7 +35,7 @@ class Main extends PluginBase implements Listener{
      $this->saveResource("config.yml");
      $this->wellItems = $this->getConfig()->get("items");
      $this->souls = new Config($this->getDataFolder().'souls.yml', Config::YAML);
-     $this->getLogger()->info("SoulWell Plugin Made By ZulfahmiFjr");
+     $this->getLogger()->info("SoulWell Plugin Made By ZulfahmiFjr + Tuvqlu!");
     }
 
     public function onPlayerJoin(PlayerJoinEvent $e){
@@ -49,7 +49,7 @@ class Main extends PluginBase implements Listener{
       $x = $data->get("well.x");
       $y = $data->get("well.y");
       $z = $data->get("well.z");
-      $text = "§bSoul Well\n§l§eRIGHT CLICK";
+      $text = "§dSoul Well \n §rClick Me!";
       $p->getWorld()->addParticle(new Vector3($x + 0.5, $y + 2, $z + 0.5), new FloatingTextParticle('', $text), array($p));
      }
     }
@@ -69,7 +69,7 @@ class Main extends PluginBase implements Listener{
       if($b->getPosition()->x === $x && $b->getPosition()->y === $y + 2 && $b->getPosition()->z === $z || $b->getPosition()->x === $x && $b->getPosition()->y === $y + 1 && $b->getPosition()->z === $z){
        $pk = new ModalFormRequestPacket();
        $pk->formId = 7382999;
-       $message = "§f       _________________________\n           §6§lSoul Well by Hypixel\n§r§f       -------------------------\n";
+       $message = "              \n \n";
        if(!empty($this->getConfig()->get("message"))){
         if(is_array($this->getConfig()->get("message"))){
          foreach($this->getConfig()->get("message") as $text){
@@ -81,7 +81,7 @@ class Main extends PluginBase implements Listener{
          $message .= "{$text}§r\n\n";
         }
        }
-       $encode = ["type" => "form", "title" => "§e§lSoul Well Confirm", "content" => "{$message}", "buttons" => [["text" => "§lOpen SoulWell"], ["text" => "§lCancel Opening"]]];
+       $encode = ["type" => "form", "title" => "§e§lConfirm Soul Well", "content" => "{$message}", "buttons" => [["text" => "§aOpen SoulWell"], ["text" => "§cCancel Opening"]]];
        $data = json_encode($encode);
        $pk->formData = $data;
        $p->getNetworkSession()->sendDataPacket($pk);
@@ -103,13 +103,13 @@ class Main extends PluginBase implements Listener{
        $data->set("well.y", $y);
        $data->set("well.z", $z);
        $data->save();
-       $text = "§bSoul Well\n§l§eRIGHT CLICK";
+       $text = "§5Soul Well\n§rClick me!";
        $b->getPosition()->getWorld()->addParticle(new Vector3($x + 0.5, $y + 2, $z + 0.5), new FloatingTextParticle('', $text));
        $b->getPosition()->getWorld()->setBlockAt($x, $y + 1, $z, VanillaBlocks::END_PORTAL_FRAME());
-       $p->sendMessage("§f§lSoulWell§r§f: §7§oSoulWell successfully added§r§f.");
+       $p->sendMessage("§l§9»§r§c bro the soul well is added okay calm tf down");
        unset($this->set[$p->getName()]);
       }else{
-       $p->sendMessage("§f§lSoulWell§r§f: §7§oSoul Well has been made please delete first§r§f.");
+       $p->sendMessage("§l§9»§r§c bro you already have a soul well dum-bass. get your sh-it sorted!");
        unset($this->set[$p->getName()]);
       }
       $e->cancel();
@@ -126,9 +126,9 @@ class Main extends PluginBase implements Listener{
         $data->remove("well.y");
         $data->remove("well.z");
         $data->save();
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oSoulWell successfully remove§r§f!");
+        $p->sendMessage("§l§9»§r§c Why tf you removing this soul well? you dont like my code? f you");
        }else{
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oYou have no permission to break SoulWell§r§f!");
+        $p->sendMessage("§l§9»§r§c You do not have permission to break the SoulWell!");
         $e->cancel();
        }
       }
@@ -145,7 +145,7 @@ class Main extends PluginBase implements Listener{
        if(isset($data)){
         if($data === 0){
          if($this->souls->get(strtolower($p->getName())) < 10){
-          $p->sendMessage("§f§lSoulWell§r§f: §7§oYour Soul Keys amount is still lacking to open SoulWell§r§f!");
+          $p->sendMessage("§l§9»§r§c You do not have enough Soul Keys to open the Soul Well!");
           return;
          }
          $this->souls->set(strtolower($p->getName()), $this->souls->get(strtolower($p->getName())) - 10);
@@ -160,49 +160,49 @@ class Main extends PluginBase implements Listener{
     public function onCommand(CommandSender $p, Command $command, string $label, array $args):bool{
      switch($command->getName()){
       case "soulwell":{
-       $p->sendMessage("§l§9»» §r§e§oHi this plugin made by ZulfahmiFjr§r§f, §e§oyou can contact me at§r§f:\n§f- §e§oDiscord§r§f: ZulfahmiFjr#8525\n§f- §e§oWhatsapp§r§f: +6287880267100\n§f- §e§oEmail§r§f: 6931856cg@gmail.com\n§e§oPlease take care this plugin§r§f! §e§oThanks§r§f :)");
+       $p->sendMessage("§l§9»§r§b This plugin was made by §eZulfahmiFjr§b + §dBlossom Devs§b!");
        break;
       }
       case "addwell":{
        if(!$p instanceof Player){
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oPlease use this command in the game§r§f!");
+        $p->sendMessage("§l§9»§r§c Please use this command in game!");
         return false;
        }
        if(!$this->getServer()->isOp($p->getName())){
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oYou have no permission to use this command§r§f!");
+        $p->sendMessage("§l§9»§r§c You do not have permission to use this command!");
         return false;
        }
        $this->set[$p->getName()] = true;
-       $p->sendMessage("§f§lSoulWell§r§f: §7§oPlease destroy 1 block§r§f!");
+       $p->sendMessage("§l§9»§r§b Please destroy 1 block!");
        break;
       }
       case "addsouls":{
        if(!$this->getServer()->isOp($p->getName()) && $p instanceof Player){
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oYou have no permission to use this command§r§f!");
+        $p->sendMessage("§l§9»§r§b §cYou have no permission to use this command!");
         return false;
        }
        if(!isset($args[0])){
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oPlease use command§r§f: /addsouls [player-name]");
+        $p->sendMessage("§l§9»§r§b Please use command:§e /addsouls [player-name]");
         return false;
        }
        if(!isset($args[1])){
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oPlease use command§r§f: /addsouls [player-name] [count]");
+        $p->sendMessage("§l§9»§r§c Please use command:§e /addsouls [player-name] [count]");
         return false;
        }
        if(!is_numeric($args[1]) && $args[1] <= 0){
-        $p->sendMessage("§f§lSoulWell§r§f: §7§oPlease enter the number of soul keys correctly§r§f!");
+        $p->sendMessage("§l§9»§r§c Please enter the number of soul keys correctly!");
         return false;
        }
        $t = $this->getServer()->getPlayerExact($args[0]);
        if($t instanceof Player){
-        $t->sendMessage("§f§lSoulWell§r§f: §7§oYou have sent Soul Keys to the amount§r§f ".$args[1].".");
+        $t->sendMessage("§l§9»§r§a Congratulations! You recieved §e".$args[1]." §asouls!");
         $name = strtolower($t->getName());
        }else{
         $name = strtolower($args[0]);
        }
        $this->souls->set($name, $this->souls->get($name) + $args[1]);
        $this->souls->save();
-       $p->sendMessage("§f§lSoulWell§r§f: §7§oYou have successfully added §r§f".$name." §7§oSoul Keys to the amount §r§f".$args[1].".");
+       $p->sendMessage("§l§9»§r§a You have successfully gave §e".$name." §aSoul Keys §ex ".$args[1]."");
        break;
       }
      }
